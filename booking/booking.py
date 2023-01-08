@@ -49,6 +49,42 @@ class Booking(webdriver.Chrome):
         selected_language_element.click()
 
     def select_place_to_go(self, place_to_go):
-        search_field = self.find_element(By.ID, "ss")
+        search_field = self.find_element(By.NAME, "ss")
         search_field.clear()
         search_field.send_keys(place_to_go)
+
+        # xpath_path = "/html/body/div[1]/div[2]/div/div/div/form/div[1]/div[1]/div/div/div[2]/ul/li[1]/div"
+        # xpath_path_two = "//ul[@class='b530332a61']/li[1]"
+        # xpath_path_three = "//ul[@data-testid='autocomplete-results']/li[1]"
+
+        # selected_place_to_go = self.find_element(By.XPATH, xpath_path_three)
+        # selected_place_to_go = self.find_element(By.CSS_SELECTOR, "li:first-child")
+        # selected_place_to_go.click()
+
+        # first_result = self.find_element(By.CSS_SELECTOR, 'li[data-i="0"]')
+        # first_result.click()
+
+        try:
+            first_result = self.find_element(By.CSS_SELECTOR, 'li[data-i="0"]')
+        except:
+            print("couldn't find element using css selector")
+
+        try:
+            first_result = self.find_element(
+                By.XPATH, "//ul[@data-testid='autocomplete-results']/li[1]/div"
+            )
+        except:
+            print("couldn't find element using xpath")
+
+        first_result.click()
+
+    def select_dates(self, check_in_date, check_out_date):
+        check_in_element = self.find_element(
+            By.CSS_SELECTOR, 'span[data-date="{}"]'.format(check_in_date)
+        )
+        check_in_element.click()
+
+        check_out_element = self.find_element(
+            By.CSS_SELECTOR, 'span[data-date="{}"]'.format(check_out_date)
+        )
+        check_out_element.click()
