@@ -12,7 +12,7 @@ class Booking(webdriver.Chrome):
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
         super(Booking, self).__init__()
-        self.implicitly_wait(2)
+        self.implicitly_wait(5)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
@@ -143,3 +143,108 @@ class Booking(webdriver.Chrome):
                     pass
 
                 next_element.click()
+
+    def select_adults(self, count=1):
+
+        try:
+            selection_element = self.find_element(
+                By.CSS_SELECTOR, 'button[data-testid="occupancy-config"]'
+            )
+        except:
+            pass
+
+        try:
+            selection_element = self.find_element(By.ID, "xp__guests__toggle")
+        except:
+            pass
+
+        selection_element.click()
+
+        while True:
+            try:
+                decrease_adults_element = self.find_element(
+                    By.XPATH,
+                    '//div[@data-testid="occupancy-popup"]/div/div/div[2]/button[1]',
+                )
+            except:
+                pass
+
+            try:
+                decrease_adults_element = self.find_element(
+                    By.CSS_SELECTOR, 'button[aria-label="Decrease number of Adults"]'
+                )
+            except:
+                pass
+
+            decrease_adults_element.click()
+
+            # if statement
+            adults_value_element = self.find_element(By.ID, "group_adults")
+            adults_value = adults_value_element.get_attribute(
+                "value"
+            )  # should give back the adults count
+
+            if int(adults_value) == 1:
+                break
+
+        try:
+            increase_button_element = self.find_element(
+                By.CSS_SELECTOR, 'button[aria-label="Increase number of Adults"]'
+            )
+        except:
+            pass
+
+        try:
+            increase_button_element = self.find_element(
+                By.XPATH,
+                '//div[@data-testid="occupancy-popup"]/div/div[1]/div[2]/button[2]',
+            )
+        except:
+            pass
+
+        for _ in range(count - 1):
+            increase_button_element.click()
+
+    def select_children(self, count=0):
+
+        try:
+            increase_button_element = self.find_element(
+                By.CSS_SELECTOR, 'button[aria-label="Increase number of Children"]'
+            )
+        except:
+            pass
+
+        try:
+            increase_button_element = self.find_element(
+                By.XPATH,
+                '//div[@data-testid="occupancy-popup"]/div/div[2]/div[2]/button[2]',
+            )
+        except:
+            pass
+
+        for _ in range(count):
+            increase_button_element.click()
+
+    def select_rooms(self, count=1):
+
+        try:
+            increase_button_element = self.find_element(
+                By.CSS_SELECTOR, 'button[aria-label="Increase number of Rooms"]'
+            )
+        except:
+            pass
+
+        try:
+            increase_button_element = self.find_element(
+                By.XPATH,
+                '//div[@data-testid="occupancy-popup"]/div/div[3]/div[2]/button[2]',
+            )
+        except:
+            pass
+
+        for _ in range(count - 1):
+            increase_button_element.click()
+
+    def click_search(self):
+        search_button = self.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
+        search_button.click()
