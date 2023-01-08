@@ -1,8 +1,7 @@
 from booking.booking import Booking
 
-# inst = Booking()
-# inst.land_first_page()
-
 with Booking() as bot:
     bot.land_first_page()
-    print("Exiting ...")
+    bot.change_currency(currency="USD")
+    bot.change_language(language="us")
+    bot.select_place_to_go(place_to_go="Rio De Janeiro")
