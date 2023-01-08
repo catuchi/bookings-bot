@@ -12,7 +12,7 @@ class Booking(webdriver.Chrome):
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
         super(Booking, self).__init__()
-        self.implicitly_wait(15)
+        self.implicitly_wait(2)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
@@ -53,38 +53,93 @@ class Booking(webdriver.Chrome):
         search_field.clear()
         search_field.send_keys(place_to_go)
 
-        # xpath_path = "/html/body/div[1]/div[2]/div/div/div/form/div[1]/div[1]/div/div/div[2]/ul/li[1]/div"
-        # xpath_path_two = "//ul[@class='b530332a61']/li[1]"
-        # xpath_path_three = "//ul[@data-testid='autocomplete-results']/li[1]"
-
-        # selected_place_to_go = self.find_element(By.XPATH, xpath_path_three)
-        # selected_place_to_go = self.find_element(By.CSS_SELECTOR, "li:first-child")
-        # selected_place_to_go.click()
-
-        # first_result = self.find_element(By.CSS_SELECTOR, 'li[data-i="0"]')
-        # first_result.click()
-
         try:
             first_result = self.find_element(By.CSS_SELECTOR, 'li[data-i="0"]')
         except:
-            print("couldn't find element using css selector")
+            # print("couldn't find element using css selector")
+            pass
 
         try:
             first_result = self.find_element(
                 By.XPATH, "//ul[@data-testid='autocomplete-results']/li[1]/div"
             )
         except:
-            print("couldn't find element using xpath")
+            # print("couldn't find element using xpath")
+            pass
 
         first_result.click()
 
     def select_dates(self, check_in_date, check_out_date):
-        check_in_element = self.find_element(
-            By.CSS_SELECTOR, 'span[data-date="{}"]'.format(check_in_date)
-        )
-        check_in_element.click()
 
-        check_out_element = self.find_element(
-            By.CSS_SELECTOR, 'span[data-date="{}"]'.format(check_out_date)
-        )
-        check_out_element.click()
+        check_in_date_clicked = False
+
+        while not check_in_date_clicked:
+            try:
+                try:
+                    check_in_element = self.find_element(
+                        By.CSS_SELECTOR, 'span[data-date="{}"]'.format(check_in_date)
+                    )
+                except:
+                    pass
+
+                try:
+                    check_in_element = self.find_element(
+                        By.CSS_SELECTOR, 'td[data-date="{}"]'.format(check_in_date)
+                    )
+                except:
+                    pass
+
+                check_in_element.click()
+                check_in_date_clicked = True
+            except:
+                try:
+                    next_element = self.find_element(By.CLASS_NAME, "be298b15fa")
+                except:
+                    pass
+
+                try:
+                    next_element = self.find_element(
+                        By.CSS_SELECTOR, 'div[data-bui-ref="calendar-next"]'
+                    )
+                except:
+                    pass
+
+                next_element.click()
+
+        check_out_date_clicked = False
+
+        while not check_out_date_clicked:
+            try:
+                try:
+                    check_out_element = self.find_element(
+                        By.CSS_SELECTOR, 'span[data-date="{}"]'.format(check_out_date)
+                    )
+                except:
+                    pass
+
+                try:
+                    check_out_element = self.find_element(
+                        By.CSS_SELECTOR, 'td[data-date="{}"]'.format(check_out_date)
+                    )
+                except:
+                    pass
+
+                check_out_element.click()
+                check_out_date_clicked = True
+            except:
+
+                try:
+                    next_element = self.find_element(By.CLASS_NAME, "be298b15fa")
+                except:
+                    # print("couldn't find element using classname")
+                    pass
+
+                try:
+                    next_element = self.find_element(
+                        By.CSS_SELECTOR, 'div[data-bui-ref="calendar-next"]'
+                    )
+                except:
+                    # print("couldn't find element using second css selector")
+                    pass
+
+                next_element.click()
