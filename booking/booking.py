@@ -16,7 +16,7 @@ class Booking(webdriver.Chrome):
         os.environ["PATH"] += self.driver_path
         options = webdriver.ChromeOptions()
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        options.add_argument("incognito")
+        # options.add_argument("incognito")
         super(Booking, self).__init__(options=options)
         self.implicitly_wait(2)
         self.maximize_window()

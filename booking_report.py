@@ -36,11 +36,14 @@ class BookingReport:
                 .strip()
             )
             time.sleep(1)
-            deal_score = (
-                deal_box.find_element(By.CSS_SELECTOR, 'div[aria-label^="Scored"]')
-                .get_attribute("innerHTML")
-                .strip()
-            )
+            try:
+                deal_score = (
+                    deal_box.find_element(By.CSS_SELECTOR, 'div[aria-label^="Scored"]')
+                    .get_attribute("innerHTML")
+                    .strip()
+                )
+            except:
+                deal_score = "N/A"
 
             # collection.append([deal_name, deal_price, deal_score])
             collection.append(
