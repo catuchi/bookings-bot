@@ -13,7 +13,7 @@ class Booking(webdriver.Chrome):
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
         super(Booking, self).__init__()
-        self.implicitly_wait(2)
+        self.implicitly_wait(5)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
@@ -273,4 +273,6 @@ class Booking(webdriver.Chrome):
 
     def apply_filtrations(self):
         filtration = BookingFiltration(driver=self)
-        filtration.apply_star_rating(3, 4, 5)
+        filtration.apply_star_rating(4, 5)
+
+        filtration.sort_price_lowest_first()
