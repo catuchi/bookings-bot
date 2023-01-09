@@ -13,7 +13,7 @@ class Booking(webdriver.Chrome):
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
         super(Booking, self).__init__()
-        self.implicitly_wait(5)
+        self.implicitly_wait(2)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
