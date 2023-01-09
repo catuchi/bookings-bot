@@ -9,7 +9,7 @@ try:
     input_six = int(raw_input("How many people? (Max 30): "))
     input_seven = int(raw_input("How many rooms? (Max 30): "))
 
-    with Booking(teardown=True) as bot:
+    with Booking() as bot:
         bot.land_first_page()
         # bot.change_currency(currency="CAD")
         bot.change_currency(currency=input_one)
