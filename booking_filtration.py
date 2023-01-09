@@ -39,3 +39,36 @@ class BookingFiltration:
             By.CSS_SELECTOR, 'button[data-id="price"]'
         )
         price_element.click()
+
+    def sort_by_rating_highest_first(self):
+        dropdown_element = self.driver.find_element(
+            By.CSS_SELECTOR, 'button[data-testid="sorters-dropdown-trigger"]'
+        )
+        dropdown_element.click()
+
+        price_element = self.driver.find_element(
+            By.CSS_SELECTOR, 'button[data-id="class"]'
+        )
+        price_element.click()
+
+    def sort_by_top_reviewed(self):
+        dropdown_element = self.driver.find_element(
+            By.CSS_SELECTOR, 'button[data-testid="sorters-dropdown-trigger"]'
+        )
+        dropdown_element.click()
+
+        price_element = self.driver.find_element(
+            By.CSS_SELECTOR, 'button[data-id="bayesian_review_score"]'
+        )
+        price_element.click()
+
+    def sort_by_best_reviewed_and_lowest_price(self):
+        dropdown_element = self.driver.find_element(
+            By.CSS_SELECTOR, 'button[data-testid="sorters-dropdown-trigger"]'
+        )
+        dropdown_element.click()
+
+        price_element = self.driver.find_element(
+            By.CSS_SELECTOR, 'button[data-id="review_score_and_price"]'
+        )
+        price_element.click()
