@@ -10,3 +10,4 @@ with Booking() as bot:
     # bot.select_children(2)  # max 10
     bot.select_rooms(2)  # max 30
     bot.click_search()
+    bot.apply_filtrations()

@@ -24,9 +24,19 @@ class Booking(webdriver.Chrome):
         self.get(BASE_URL)
 
     def change_currency(self, currency=None):
-        currency_element = self.find_element(
-            By.CSS_SELECTOR, 'button[data-tooltip-text="Choose your currency"]'
-        )
+        try:
+            currency_element = self.find_element(
+                By.CSS_SELECTOR, 'button[data-tooltip-text="Choose your currency"]'
+            )
+        except:
+            pass
+
+        try:
+            currency_element = self.find_element(
+                By.CSS_SELECTOR, 'button[data-testid="header-currency-picker-trigger"]'
+            )
+        except:
+            pass
 
         currency_element.click()
 
@@ -39,9 +49,20 @@ class Booking(webdriver.Chrome):
         selected_currency_element.click()
 
     def change_language(self, language=None):
-        language_element = self.find_element(
-            By.CSS_SELECTOR, 'button[data-tooltip-text="Choose your language"]'
-        )
+        try:
+            language_element = self.find_element(
+                By.CSS_SELECTOR, 'button[data-tooltip-text="Choose your language"]'
+            )
+        except:
+            pass
+
+        try:
+            language_element = self.find_element(
+                By.CSS_SELECTOR, 'button[data-testid="header-language-picker-trigger"]'
+            )
+        except:
+            pass
+
         language_element.click()
 
         selected_language_element = self.find_element(
@@ -252,3 +273,4 @@ class Booking(webdriver.Chrome):
 
     def apply_filtrations(self):
         filtration = BookingFiltration(driver=self)
+        filtration.apply_star_rating(3, 4, 5)
