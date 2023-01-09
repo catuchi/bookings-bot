@@ -18,7 +18,7 @@ class Booking(webdriver.Chrome):
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         # options.add_argument("incognito")
         super(Booking, self).__init__(options=options)
-        self.implicitly_wait(2)
+        self.implicitly_wait(3)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
@@ -293,10 +293,8 @@ class Booking(webdriver.Chrome):
 
         table = PrettyTable()
         table.field_names = ["Hotel Name", "Hotel Price", "Hotel Score"]
-        # table = PrettyTable(field_names=["Hotel Name", "Hotel Price", "Hotel Score"])
 
         while report_rows:
-            # print("------", report_rows)
             for i in report_rows:
                 table.add_row(i)
             break

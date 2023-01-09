@@ -26,7 +26,6 @@ class BookingReport:
                 .get_attribute("innerHTML")
                 .strip()
             )
-            # print(deal_name)
             time.sleep(1)
             deal_price = (
                 deal_box.find_element(
@@ -45,7 +44,6 @@ class BookingReport:
             except:
                 deal_score = "N/A"
 
-            # collection.append([deal_name, deal_price, deal_score])
             collection.append(
                 [
                     deal_name.encode("UTF8").replace("&amp;", "&"),
