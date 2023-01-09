@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from constants import BASE_URL
 from booking_filtration import BookingFiltration
+from booking_report import BookingReport
 
 
 class Booking(webdriver.Chrome):
@@ -14,6 +15,7 @@ class Booking(webdriver.Chrome):
         os.environ["PATH"] += self.driver_path
         options = webdriver.ChromeOptions()
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        options.add_argument("incognito")
         super(Booking, self).__init__(options=options)
         self.implicitly_wait(2)
         self.maximize_window()
@@ -280,9 +282,13 @@ class Booking(webdriver.Chrome):
         filtration.sort_price_lowest_first()
 
     def report_results(self):
+        # result_boxes = self.find_element(
+        #     By.XPATH, '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]'
+        # ).find_elements(By.CSS_SELECTOR, 'div[data-testid="property-card"]')
+
         hotel_boxes = self.find_element(
             By.XPATH, '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]'
-        ).find_elements(By.CLASS_NAME, "da89aeb942")
-        # fullpath = '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]/div[@class="a826ba81c4 fe821aea6c fa2f36ad22 afd256fc79 d08f526e0d ed11e24d01 ef9845d4b3 da89aeb942"]'
+        )
 
-        return hotel_boxes
+        report = BookingReport(hotel_boxes)
+        report.pull_titles()
