@@ -12,6 +12,7 @@ try:
         bot.select_rooms(1)  # max 30
         bot.click_search()
         bot.apply_filtrations()
+        bot.refresh()  # A workaround to let bot grab data properly
         bot.report_results()
 
 except Exception as e:

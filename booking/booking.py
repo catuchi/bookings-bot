@@ -291,4 +291,4 @@ class Booking(webdriver.Chrome):
         )
 
         report = BookingReport(hotel_boxes)
-        report.pull_titles()
+        print(report.pull_deal_box_attributes())
