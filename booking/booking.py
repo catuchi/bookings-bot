@@ -12,8 +12,10 @@ class Booking(webdriver.Chrome):
         self.driver_path = driver_path
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
-        super(Booking, self).__init__()
-        self.implicitly_wait(2)
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        super(Booking, self).__init__(options=options)
+        self.implicitly_wait(3)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
