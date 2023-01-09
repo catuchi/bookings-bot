@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from constants import BASE_URL
 from booking_filtration import BookingFiltration
 from booking_report import BookingReport
+from prettytable import PrettyTable
 
 
 class Booking(webdriver.Chrome):
@@ -282,13 +283,22 @@ class Booking(webdriver.Chrome):
         filtration.sort_price_lowest_first()
 
     def report_results(self):
-        # result_boxes = self.find_element(
-        #     By.XPATH, '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]'
-        # ).find_elements(By.CSS_SELECTOR, 'div[data-testid="property-card"]')
 
         hotel_boxes = self.find_element(
             By.XPATH, '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]'
         )
 
         report = BookingReport(hotel_boxes)
-        print(report.pull_deal_box_attributes())
+        report_rows = report.pull_deal_box_attributes()
+
+        table = PrettyTable()
+        table.field_names = ["Hotel Name", "Hotel Price", "Hotel Score"]
+        # table = PrettyTable(field_names=["Hotel Name", "Hotel Price", "Hotel Score"])
+
+        while report_rows:
+            # print("------", report_rows)
+            for i in report_rows:
+                table.add_row(i)
+            break
+
+        print(table)
