@@ -9,7 +9,7 @@ from prettytable import PrettyTable
 
 class Booking(webdriver.Chrome):
     def __init__(
-        self, driver_path=r":/Users/catuchi/lighthouse/SeleniumDrivers", teardown=False
+        self, driver_path=r=":/path/to/chromedriver", teardown=False
     ):
         self.driver_path = driver_path
         self.teardown = teardown
