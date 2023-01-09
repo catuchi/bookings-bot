@@ -2,6 +2,7 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from constants import BASE_URL
+from booking_filtration import BookingFiltration
 
 
 class Booking(webdriver.Chrome):
@@ -12,7 +13,7 @@ class Booking(webdriver.Chrome):
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
         super(Booking, self).__init__()
-        self.implicitly_wait(5)
+        self.implicitly_wait(2)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
@@ -248,3 +249,6 @@ class Booking(webdriver.Chrome):
     def click_search(self):
         search_button = self.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
         search_button.click()
+
+    def apply_filtrations(self):
+        filtration = BookingFiltration(driver=self)
