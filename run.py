@@ -12,6 +12,7 @@ try:
         bot.select_rooms(1)  # max 30
         bot.click_search()
         bot.apply_filtrations()
+        print(len(bot.report_results()))
 
 except Exception as e:
     if "in PATH" in str(e):

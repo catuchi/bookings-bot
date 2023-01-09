@@ -15,7 +15,7 @@ class Booking(webdriver.Chrome):
         options = webdriver.ChromeOptions()
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         super(Booking, self).__init__(options=options)
-        self.implicitly_wait(3)
+        self.implicitly_wait(2)
         self.maximize_window()
 
     def __exit__(self, exc_type, exc, traceback):
@@ -278,3 +278,11 @@ class Booking(webdriver.Chrome):
         filtration.apply_star_rating(4, 5)
 
         filtration.sort_price_lowest_first()
+
+    def report_results(self):
+        hotel_boxes = self.find_element(
+            By.XPATH, '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]'
+        ).find_elements(By.CLASS_NAME, "da89aeb942")
+        # fullpath = '//div[@id="search_results_table"]/div[2]/div/div/div/div[4]/div[@class="a826ba81c4 fe821aea6c fa2f36ad22 afd256fc79 d08f526e0d ed11e24d01 ef9845d4b3 da89aeb942"]'
+
+        return hotel_boxes
